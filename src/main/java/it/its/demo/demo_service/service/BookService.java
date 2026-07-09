@@ -45,7 +45,7 @@ public class BookService {
     public Book buy(String id, BuyRequest request) {
         Book book = findById(id);
 
-        if (book.getQuantity() <= request.getQuantity()) {
+        if (book.getQuantity() <= request.getQuantity() - 1) {
             throw new BooksNotAvailable(id, request.getQuantity());
         }
 
@@ -54,4 +54,22 @@ public class BookService {
         return book;
     }
 
+    public Book patch(String id, Book insert) {
+
+        Book toUpdate = findById(id);
+
+        if(insert.getAuthor() != null){
+            toUpdate.setAuthor(insert.getAuthor());
+        }
+
+        if(insert.getName() != null){
+            toUpdate.setName(insert.getName());
+        }
+
+        if(insert.getQuantity() != null){
+            toUpdate.setQuantity(insert.getQuantity());
+        }
+
+        return toUpdate;
+    }
 }

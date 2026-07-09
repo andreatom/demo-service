@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,6 +31,15 @@ public class BookController {
             @RequestBody Book book
     ) {
         return bookService.insert(book);
+    }
+
+    @PatchMapping("/{id}/v1")
+    @ResponseStatus(HttpStatus.OK)
+    public Book patch (
+            @PathVariable String id,
+            @RequestBody Book book
+    ) {
+        return bookService.patch(id, book);
     }
 
     @GetMapping("/v1")
