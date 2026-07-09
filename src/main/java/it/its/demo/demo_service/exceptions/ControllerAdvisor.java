@@ -20,4 +20,10 @@ public class ControllerAdvisor {
         return e.getMessage();
     }
 
+    @ExceptionHandler(BooksNotAvailable.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String bookNotFound(BooksNotAvailable e){
+        return e.getMessage();
+    }
+
 }

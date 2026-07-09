@@ -1,6 +1,7 @@
 package it.its.demo.demo_service.controller;
 
 import it.its.demo.demo_service.model.Book;
+import it.its.demo.demo_service.model.BuyRequest;
 import it.its.demo.demo_service.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,7 +45,7 @@ public class BookController {
     ){
         return bookService.findById(id);
     }
-    
+
     @GetMapping("/search/v1")
     @ResponseStatus(HttpStatus.OK)
     public List<Book> findByName(
@@ -59,6 +60,15 @@ public class BookController {
             @PathVariable String id
     ){
        bookService.delete(id);
+    }
+
+    @PostMapping("/{id}/buy/v1")
+    @ResponseStatus(HttpStatus.OK)
+    public Book buy(
+            @PathVariable String id,
+            @RequestBody BuyRequest buyRequest
+    ){
+        return bookService.buy(id, buyRequest);
     }
 
 }

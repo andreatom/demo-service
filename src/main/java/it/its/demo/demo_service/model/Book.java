@@ -9,6 +9,7 @@ public class Book {
     String id;
     String name;
     String author;
+    Integer quantity;
 }
 
 /*
