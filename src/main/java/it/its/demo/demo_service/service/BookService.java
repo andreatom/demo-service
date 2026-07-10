@@ -38,22 +38,44 @@ public class BookService {
     }
 
 
-    public Book findById(String id) {
+    public BookDto findById(String id) {
         return books.stream()
                 .filter(it -> it.getId().equals(id))
-                //.map(book -> {})
+                .map(book -> {
+                    BookDto bookDto = new BookDto();
+                    bookDto.setId(book.getId());
+                    bookDto.setName(book.getName());
+                    bookDto.setAuthor(book.getAuthor());
+                    bookDto.setQuantity(book.getQuantity());
+                    return bookDto;
+                })
                 .findFirst()
                 .orElseThrow(() -> new BookNotFoundException(id));
     }
 
-    public List<Book> findAll() {
-        return books; // uso gli stream per mappare
+    public List<BookDto> findAll() {
+        return books.stream()
+                .map(book -> {
+                    BookDto bookDto = new BookDto();
+                    bookDto.setId(book.getId());
+                    bookDto.setName(book.getName());
+                    bookDto.setAuthor(book.getAuthor());
+                    bookDto.setQuantity(book.getQuantity());
+                    return bookDto;
+                }).collect(Collectors.toList());
     }
 
-    public List<Book> findByName(String name) {
+    public List<BookDto> findByName(String name) {
         return books.stream()
                 .filter(it -> it.getName().equals(name))
-                //.map(book -> {})
+                .map(book -> {
+                    BookDto bookDto = new BookDto();
+                    bookDto.setId(book.getId());
+                    bookDto.setName(book.getName());
+                    bookDto.setAuthor(book.getAuthor());
+                    bookDto.setQuantity(book.getQuantity());
+                    return bookDto;
+                })
                 .collect(Collectors.toList());
     }
 
@@ -62,8 +84,8 @@ public class BookService {
         books.removeIf(it -> it.getId().equals(id));
     }
 
-    public Book buy(String id, BuyRequest request) {
-        Book book = findById(id);
+    public BookDto buy(String id, BuyRequest request) {
+        Book book = getBookById(id);
 
         if (book.getQuantity() <= request.getQuantity() - 1) {
             throw new BooksNotAvailable(id, request.getQuantity());
@@ -71,34 +93,65 @@ public class BookService {
 
         book.setQuantity(book.getQuantity() - request.getQuantity());
 
-        // book -> bookDto
+        BookDto bookDto = new BookDto();
+        bookDto.setId(book.getId());
+        bookDto.setName(book.getName());
+        bookDto.setAuthor(book.getAuthor());
+        bookDto.setQuantity(book.getQuantity());
 
-        return book;
+        return bookDto;
     }
 
 
     // PatchBook -> BookDto
     public Book patch(String id, Book insert) {
 
-        Book toUpdate = findById(id);
+        Book toUpdate = getBookById(id);
 
-        if(insert.getAuthor() != null){
+        if (insert.getAuthor() != null) {
             toUpdate.setAuthor(insert.getAuthor());
         }
 
-        if(insert.getName() != null){
+        if (insert.getName() != null) {
             toUpdate.setName(insert.getName());
         }
 
-        if(insert.getQuantity() != null){
+        if (insert.getQuantity() != null) {
             toUpdate.setQuantity(insert.getQuantity());
         }
+
+        BookDto bookDto = new BookDto();
+        bookDto.setId(toUpdate.getId());
+        bookDto.setName(toUpdate.getName());
+        bookDto.setAuthor(toUpdate.getAuthor());
+        bookDto.setQuantity(toUpdate.getQuantity());
 
         return toUpdate;
     }
 
     // BookInsertDto -> BookDto
     public BookDto put(String id, Book insert) {
-        throw new UnsupportedOperationException();
+
+        Book toUpdate = getBookById(id);
+        toUpdate.setAuthor(insert.getAuthor());
+        toUpdate.setName(insert.getName());
+        toUpdate.setQuantity(insert.getQuantity());
+
+
+        BookDto bookDto = new BookDto();
+        bookDto.setId(toUpdate.getId());
+        bookDto.setName(toUpdate.getName());
+        bookDto.setAuthor(toUpdate.getAuthor());
+        bookDto.setQuantity(toUpdate.getQuantity());
+
+        return bookDto;
+    }
+
+
+    private Book getBookById(String id) {
+        return books.stream()
+                .filter(it -> it.getId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new BookNotFoundException(id));
     }
 }

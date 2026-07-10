@@ -47,13 +47,13 @@ public class BookController {
 
     @GetMapping("/v1")
     @ResponseStatus(HttpStatus.OK)
-    public List<Book> findAll(){
+    public List<BookDto> findAll(){
         return bookService.findAll();
     }
 
     @GetMapping("/{id}/v1")
     @ResponseStatus(HttpStatus.OK)
-    public Book findById(
+    public BookDto findById(
             @PathVariable String id
     ){
         return bookService.findById(id);
@@ -61,7 +61,7 @@ public class BookController {
 
     @GetMapping("/search/v1")
     @ResponseStatus(HttpStatus.OK)
-    public List<Book> findByName(
+    public List<BookDto> findByName(
             @RequestParam String name
     ){
         return bookService.findByName(name);
@@ -77,7 +77,7 @@ public class BookController {
 
     @PostMapping("/{id}/buy/v1")
     @ResponseStatus(HttpStatus.OK)
-    public Book buy(
+    public BookDto buy(
             @PathVariable String id,
             @Valid @RequestBody BuyRequest buyRequest
     ){
