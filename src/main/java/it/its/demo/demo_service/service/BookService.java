@@ -5,7 +5,7 @@ import it.its.demo.demo_service.dto.InsertBook;
 import it.its.demo.demo_service.exceptions.BookNotFoundException;
 import it.its.demo.demo_service.exceptions.BooksNotAvailable;
 import it.its.demo.demo_service.model.Book;
-import it.its.demo.demo_service.model.BuyRequest;
+import it.its.demo.demo_service.dto.BuyRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -37,20 +37,23 @@ public class BookService {
         return bookDto;
     }
 
-    public List<Book> findAll() {
-        return books;
-    }
 
     public Book findById(String id) {
         return books.stream()
                 .filter(it -> it.getId().equals(id))
+                //.map(book -> {})
                 .findFirst()
                 .orElseThrow(() -> new BookNotFoundException(id));
+    }
+
+    public List<Book> findAll() {
+        return books; // uso gli stream per mappare
     }
 
     public List<Book> findByName(String name) {
         return books.stream()
                 .filter(it -> it.getName().equals(name))
+                //.map(book -> {})
                 .collect(Collectors.toList());
     }
 
@@ -68,9 +71,13 @@ public class BookService {
 
         book.setQuantity(book.getQuantity() - request.getQuantity());
 
+        // book -> bookDto
+
         return book;
     }
 
+
+    // PatchBook -> BookDto
     public Book patch(String id, Book insert) {
 
         Book toUpdate = findById(id);
@@ -88,5 +95,10 @@ public class BookService {
         }
 
         return toUpdate;
+    }
+
+    // BookInsertDto -> BookDto
+    public BookDto put(String id, Book insert) {
+        throw new UnsupportedOperationException();
     }
 }

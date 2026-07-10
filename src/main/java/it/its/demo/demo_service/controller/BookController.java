@@ -3,7 +3,7 @@ package it.its.demo.demo_service.controller;
 import it.its.demo.demo_service.dto.BookDto;
 import it.its.demo.demo_service.dto.InsertBook;
 import it.its.demo.demo_service.model.Book;
-import it.its.demo.demo_service.model.BuyRequest;
+import it.its.demo.demo_service.dto.BuyRequest;
 import it.its.demo.demo_service.service.BookService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

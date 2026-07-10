@@ -1,4 +1,4 @@
-package it.its.demo.demo_service.model;
+package it.its.demo.demo_service.dto;
 
 import jakarta.validation.constraints.Positive;
 import lombok.Data;
