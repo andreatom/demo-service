@@ -1,9 +1,9 @@
 package it.its.demo.demo_service.controller;
 
 import it.its.demo.demo_service.dto.BookDto;
-import it.its.demo.demo_service.dto.InsertBook;
-import it.its.demo.demo_service.model.Book;
 import it.its.demo.demo_service.dto.BuyRequest;
+import it.its.demo.demo_service.dto.InsertBook;
+import it.its.demo.demo_service.dto.PatchBook;
 import it.its.demo.demo_service.service.BookService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,11 +39,20 @@ public class BookController {
 
     @PatchMapping("/{id}/v1")
     @ResponseStatus(HttpStatus.OK)
-    public Book patch (
+    public BookDto patch (
             @PathVariable String id,
-            @RequestBody Book book
+            @RequestBody PatchBook patchBook
     ) {
-        return bookService.patch(id, book);
+        return bookService.patch(id, patchBook);
+    }
+
+    @PutMapping("/{id}/v1")
+    @ResponseStatus(HttpStatus.OK)
+    public BookDto patch (
+            @PathVariable String id,
+            @RequestBody InsertBook insertBook
+    ) {
+        return bookService.put(id, insertBook);
     }
 
     @GetMapping("/v1")

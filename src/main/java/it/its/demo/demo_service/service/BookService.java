@@ -1,16 +1,18 @@
 package it.its.demo.demo_service.service;
 
 import it.its.demo.demo_service.dto.BookDto;
+import it.its.demo.demo_service.dto.BuyRequest;
 import it.its.demo.demo_service.dto.InsertBook;
+import it.its.demo.demo_service.dto.PatchBook;
 import it.its.demo.demo_service.exceptions.BookNotFoundException;
 import it.its.demo.demo_service.exceptions.BooksNotAvailable;
+import it.its.demo.demo_service.mapper.BookMapper;
 import it.its.demo.demo_service.model.Book;
-import it.its.demo.demo_service.dto.BuyRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,64 +20,34 @@ public class BookService {
 
     private final List<Book> books = new ArrayList<>();
 
+    @Autowired
+    private BookMapper bookMapper;
+
     public BookDto insert(InsertBook insertBook) {
-
-        Book book = new Book();
-        book.setId(UUID.randomUUID().toString());
-        book.setName(insertBook.getName());
-        book.setAuthor(insertBook.getAuthor());
-        book.setQuantity(insertBook.getQuantity());
-
+        Book book = bookMapper.toModel(insertBook);
         books.add(book);
-
-        BookDto bookDto = new BookDto();
-        bookDto.setId(book.getId());
-        bookDto.setName(book.getName());
-        bookDto.setAuthor(book.getAuthor());
-        bookDto.setQuantity(book.getQuantity());
-
-        return bookDto;
+        return bookMapper.toDto(book);
     }
 
 
     public BookDto findById(String id) {
         return books.stream()
                 .filter(it -> it.getId().equals(id))
-                .map(book -> {
-                    BookDto bookDto = new BookDto();
-                    bookDto.setId(book.getId());
-                    bookDto.setName(book.getName());
-                    bookDto.setAuthor(book.getAuthor());
-                    bookDto.setQuantity(book.getQuantity());
-                    return bookDto;
-                })
+                .map(book -> bookMapper.toDto(book))
                 .findFirst()
                 .orElseThrow(() -> new BookNotFoundException(id));
     }
 
     public List<BookDto> findAll() {
         return books.stream()
-                .map(book -> {
-                    BookDto bookDto = new BookDto();
-                    bookDto.setId(book.getId());
-                    bookDto.setName(book.getName());
-                    bookDto.setAuthor(book.getAuthor());
-                    bookDto.setQuantity(book.getQuantity());
-                    return bookDto;
-                }).collect(Collectors.toList());
+                .map(book -> bookMapper.toDto(book))
+                .collect(Collectors.toList());
     }
 
     public List<BookDto> findByName(String name) {
         return books.stream()
                 .filter(it -> it.getName().equals(name))
-                .map(book -> {
-                    BookDto bookDto = new BookDto();
-                    bookDto.setId(book.getId());
-                    bookDto.setName(book.getName());
-                    bookDto.setAuthor(book.getAuthor());
-                    bookDto.setQuantity(book.getQuantity());
-                    return bookDto;
-                })
+                .map(book -> bookMapper.toDto(book))
                 .collect(Collectors.toList());
     }
 
@@ -93,58 +65,39 @@ public class BookService {
 
         book.setQuantity(book.getQuantity() - request.getQuantity());
 
-        BookDto bookDto = new BookDto();
-        bookDto.setId(book.getId());
-        bookDto.setName(book.getName());
-        bookDto.setAuthor(book.getAuthor());
-        bookDto.setQuantity(book.getQuantity());
-
-        return bookDto;
+        return bookMapper.toDto(book);
     }
 
 
     // PatchBook -> BookDto
-    public Book patch(String id, Book insert) {
+    public BookDto patch(String id, PatchBook patchBook) {
 
         Book toUpdate = getBookById(id);
 
-        if (insert.getAuthor() != null) {
-            toUpdate.setAuthor(insert.getAuthor());
+        if (patchBook.getAuthor() != null) {
+            toUpdate.setAuthor(patchBook.getAuthor());
         }
 
-        if (insert.getName() != null) {
-            toUpdate.setName(insert.getName());
+        if (patchBook.getName() != null) {
+            toUpdate.setName(patchBook.getName());
         }
 
-        if (insert.getQuantity() != null) {
-            toUpdate.setQuantity(insert.getQuantity());
+        if (patchBook.getQuantity() != null) {
+            toUpdate.setQuantity(patchBook.getQuantity());
         }
 
-        BookDto bookDto = new BookDto();
-        bookDto.setId(toUpdate.getId());
-        bookDto.setName(toUpdate.getName());
-        bookDto.setAuthor(toUpdate.getAuthor());
-        bookDto.setQuantity(toUpdate.getQuantity());
-
-        return toUpdate;
+        return bookMapper.toDto(toUpdate);
     }
 
     // BookInsertDto -> BookDto
-    public BookDto put(String id, Book insert) {
+    public BookDto put(String id, InsertBook insert) {
 
         Book toUpdate = getBookById(id);
         toUpdate.setAuthor(insert.getAuthor());
         toUpdate.setName(insert.getName());
         toUpdate.setQuantity(insert.getQuantity());
 
-
-        BookDto bookDto = new BookDto();
-        bookDto.setId(toUpdate.getId());
-        bookDto.setName(toUpdate.getName());
-        bookDto.setAuthor(toUpdate.getAuthor());
-        bookDto.setQuantity(toUpdate.getQuantity());
-
-        return bookDto;
+        return bookMapper.toDto(toUpdate);
     }
 
 

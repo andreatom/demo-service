@@ -1,0 +1,31 @@
+package it.its.demo.demo_service.mapper;
+
+import it.its.demo.demo_service.dto.BookDto;
+import it.its.demo.demo_service.dto.InsertBook;
+import it.its.demo.demo_service.model.Book;
+import org.springframework.stereotype.Component;
+
+import java.util.UUID;
+
+@Component
+public class BookMapper {
+
+    public BookDto toDto(Book book){
+        BookDto bookDto = new BookDto();
+        bookDto.setId(book.getId());
+        bookDto.setName(book.getName());
+        bookDto.setAuthor(book.getAuthor());
+        bookDto.setQuantity(book.getQuantity());
+        return bookDto;
+    }
+
+    public Book toModel(InsertBook bookDto){
+        Book book = new Book();
+        book.setId(UUID.randomUUID().toString());
+        book.setName(bookDto.getName());
+        book.setAuthor(bookDto.getAuthor());
+        book.setQuantity(bookDto.getQuantity());
+        return book;
+    }
+
+}
