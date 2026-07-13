@@ -111,7 +111,10 @@ public class BookService {
         toUpdate.setName(insert.getName());
         toUpdate.setQuantity(insert.getQuantity());
 
-        bookRepository.update(id, toUpdate);
+        int result = bookRepository.update(id, toUpdate);
+        if(result == 0){
+            throw new BookNotFoundException(id);
+        }
 
         return bookMapper.toDto(toUpdate);
     }
