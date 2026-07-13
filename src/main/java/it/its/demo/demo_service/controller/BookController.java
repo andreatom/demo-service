@@ -1,9 +1,7 @@
 package it.its.demo.demo_service.controller;
 
-import it.its.demo.demo_service.dto.BookDto;
-import it.its.demo.demo_service.dto.BuyRequest;
-import it.its.demo.demo_service.dto.InsertBook;
-import it.its.demo.demo_service.dto.PatchBook;
+import it.its.demo.demo_service.dto.*;
+import it.its.demo.demo_service.repository.TransactionRepository;
 import it.its.demo.demo_service.service.BookService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,5 +90,13 @@ public class BookController {
             @Valid @RequestBody BuyRequest buyRequest
     ){
         return bookService.buy(id, buyRequest);
+    }
+
+    @GetMapping("/{id}/buy/total/v1")
+    @ResponseStatus(HttpStatus.OK)
+    public TransactionTotalDto transactionTotal(
+            @PathVariable String id
+    ){
+        return bookService.total(id);
     }
 }

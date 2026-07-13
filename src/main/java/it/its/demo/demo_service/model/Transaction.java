@@ -1,16 +1,15 @@
-package it.its.demo.demo_service.dto;
+package it.its.demo.demo_service.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-public class BookDto {
+public class Transaction {
+
     String id;
-    String name;
-    String author;
-    Integer quantity;
-    Float price;
+    String bookId;
+    Float total;
 }

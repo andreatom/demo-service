@@ -16,6 +16,7 @@ public class BookMapper {
         bookDto.setName(book.getName());
         bookDto.setAuthor(book.getAuthor());
         bookDto.setQuantity(book.getQuantity());
+        bookDto.setPrice(book.getPrice());
         return bookDto;
     }
 
@@ -25,6 +26,7 @@ public class BookMapper {
         book.setName(bookDto.getName());
         book.setAuthor(bookDto.getAuthor());
         book.setQuantity(bookDto.getQuantity());
+        book.setPrice(bookDto.getPrice());
         return book;
     }
 

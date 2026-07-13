@@ -20,4 +20,8 @@ public class InsertBook {
     @Positive(message = "Quantity cannot be null or negative")
     Integer quantity;
 
+    @NotNull(message = "Price cannot be null")
+    @Positive(message = "Price cannot be negative")
+    Float price;
+
 }

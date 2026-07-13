@@ -13,5 +13,7 @@ public class PatchBook {
     String author;
     @Positive(message = "Quantity cannot be negative")
     Integer quantity;
+    @Positive
+    Float price;
 
 }
