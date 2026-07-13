@@ -1,7 +1,6 @@
 package it.its.demo.demo_service.service;
 
 import it.its.demo.demo_service.dto.BookDto;
-import it.its.demo.demo_service.dto.BookTotal;
 import it.its.demo.demo_service.dto.BuyRequest;
 import it.its.demo.demo_service.dto.InsertBook;
 import it.its.demo.demo_service.dto.PatchBook;
@@ -9,9 +8,7 @@ import it.its.demo.demo_service.exceptions.BookNotFoundException;
 import it.its.demo.demo_service.exceptions.BooksNotAvailable;
 import it.its.demo.demo_service.mapper.BookMapper;
 import it.its.demo.demo_service.model.Book;
-import it.its.demo.demo_service.model.Transaction;
 import it.its.demo.demo_service.repository.BookRepository;
-import it.its.demo.demo_service.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,9 +23,6 @@ public class BookService {
 
     @Autowired
     private BookRepository bookRepository;
-
-    @Autowired
-    private TransactionRepository transactionRepository;
 
     public BookDto insert(InsertBook insertBook) {
         Book book = bookMapper.toModel(insertBook);
@@ -77,12 +71,6 @@ public class BookService {
             throw new BookNotFoundException(id);
         }
 
-        Transaction transaction = new Transaction();
-        transaction.setBookId(book.getId());
-        transaction.setTotal(book.getPrice() * request.getQuantity());
-
-        transactionRepository.save(transaction);
-
         return bookMapper.toDto(book);
     }
 
@@ -129,19 +117,6 @@ public class BookService {
         }
 
         return bookMapper.toDto(toUpdate);
-    }
-
-
-    public BookTotal getTotal(String bookId){
-
-        List<Transaction> transactions = transactionRepository.findByBookId(bookId);
-
-        Double total = transactions.stream()
-                .mapToDouble(Transaction::getTotal)
-                .sum();
-
-        return new BookTotal(total, bookId);
-
     }
 
 }

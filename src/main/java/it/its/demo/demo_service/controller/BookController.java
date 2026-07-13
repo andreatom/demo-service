@@ -1,7 +1,6 @@
 package it.its.demo.demo_service.controller;
 
 import it.its.demo.demo_service.dto.BookDto;
-import it.its.demo.demo_service.dto.BookTotal;
 import it.its.demo.demo_service.dto.BuyRequest;
 import it.its.demo.demo_service.dto.InsertBook;
 import it.its.demo.demo_service.dto.PatchBook;
@@ -93,11 +92,5 @@ public class BookController {
             @Valid @RequestBody BuyRequest buyRequest
     ){
         return bookService.buy(id, buyRequest);
-    }
-
-    @GetMapping("/{id}/total/v1")
-    @ResponseStatus(HttpStatus.OK)
-    public BookTotal total(@PathVariable String id){
-        return bookService.getTotal(id);
     }
 }
