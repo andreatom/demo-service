@@ -22,7 +22,7 @@ public class BookMapper {
 
     public Book toModel(InsertBook bookDto){
         Book book = new Book();
-        book.setId(UUID.randomUUID().toString());
+        //book.setId(UUID.randomUUID().toString());
         book.setName(bookDto.getName());
         book.setAuthor(bookDto.getAuthor());
         book.setQuantity(bookDto.getQuantity());
