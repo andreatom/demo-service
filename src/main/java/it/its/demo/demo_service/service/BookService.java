@@ -39,11 +39,11 @@ public class BookService {
 //        return bookMapper.toDto(book);
 //    }
 //
-//    public List<BookDto> findAll() {
-//        return bookRepository.findAll().stream()
-//                .map(book -> bookMapper.toDto(book))
-//                .collect(Collectors.toList());
-//    }
+    public List<BookDto> findAll() {
+        return bookRepository.findAll().stream()
+                .map(book -> bookMapper.toDto(book))
+                .collect(Collectors.toList());
+    }
 //
 //    public List<BookDto> findByName(String name) {
 //        return bookRepository.findByName(name).stream()

@@ -53,11 +53,11 @@ public class BookController {
 //        return bookService.put(id, insertBook);
 //    }
 //
-//    @GetMapping("/v1")
-//    @ResponseStatus(HttpStatus.OK)
-//    public List<BookDto> findAll(){
-//        return bookService.findAll();
-//    }
+    @GetMapping("/v1")
+    @ResponseStatus(HttpStatus.OK)
+    public List<BookDto> findAll(){
+        return bookService.findAll();
+    }
 //
 //    @GetMapping("/{id}/v1")
 //    @ResponseStatus(HttpStatus.OK)
