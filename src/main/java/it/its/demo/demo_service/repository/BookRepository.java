@@ -4,6 +4,8 @@ import it.its.demo.demo_service.model.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 //import java.util.ArrayList;
 //import java.util.List;
 //import java.util.Optional;
@@ -28,12 +30,8 @@ public interface BookRepository extends JpaRepository<Book, String> { //Il primo
 //    public List<Book> findAll(){
 //        return books;
 //    }
-//
-//    public List<Book> findByName(String name){
-//        return books.stream()
-//                .filter(book -> book.getName().equals(name))
-//                .collect(Collectors.toList());
-//    }
+
+    public List<Book> findByName(String title);
 //
 //    public int delete(String id){
 //

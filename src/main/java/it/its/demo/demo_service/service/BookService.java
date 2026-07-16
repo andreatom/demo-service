@@ -44,13 +44,13 @@ public class BookService {
                 .map(book -> bookMapper.toDto(book))
                 .collect(Collectors.toList());
     }
-//
-//    public List<BookDto> findByName(String name) {
-//        return bookRepository.findByName(name).stream()
-//                .map(book -> bookMapper.toDto(book))
-//                .collect(Collectors.toList());
-//    }
-//
+
+    public List<BookDto> findByName(String name) {
+        return bookRepository.findByName(name).stream()
+                .map(book -> bookMapper.toDto(book))
+                .collect(Collectors.toList());
+    }
+
 //    public void delete(String id) {
 //        int result = bookRepository.delete(id);
 //        if(result == 0){
