@@ -58,14 +58,14 @@ public class BookController {
     public List<BookDto> findAll(){
         return bookService.findAll();
     }
-//
-//    @GetMapping("/{id}/v1")
-//    @ResponseStatus(HttpStatus.OK)
-//    public BookDto findById(
-//            @PathVariable String id
-//    ){
-//        return bookService.findById(id);
-//    }
+
+    @GetMapping("/{id}/v1")
+    @ResponseStatus(HttpStatus.OK)
+    public BookDto findById(
+            @PathVariable String id
+    ){
+        return bookService.findById(id);
+    }
 //
 //    @GetMapping("/search/v1")
 //    @ResponseStatus(HttpStatus.OK)

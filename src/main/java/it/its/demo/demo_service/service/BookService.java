@@ -33,12 +33,12 @@ public class BookService {
     }
 
 
-//    public BookDto findById(String id) {
-//        Book book = bookRepository.findById(id)
-//                .orElseThrow(() -> new BookNotFoundException(id));
-//        return bookMapper.toDto(book);
-//    }
-//
+    public BookDto findById(String id) {
+        Book book = bookRepository.findById(id)
+                .orElseThrow(() -> new BookNotFoundException(id));
+        return bookMapper.toDto(book);
+    }
+
     public List<BookDto> findAll() {
         return bookRepository.findAll().stream()
                 .map(book -> bookMapper.toDto(book))
