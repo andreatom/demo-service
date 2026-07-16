@@ -51,13 +51,10 @@ public class BookService {
                 .collect(Collectors.toList());
     }
 
-//    public void delete(String id) {
-//        int result = bookRepository.delete(id);
-//        if(result == 0){
-//            throw new BookNotFoundException(id);
-//        }
-//    }
-//
+    public void delete(String id) {
+        bookRepository.deleteById(id);
+    }
+
 //    public BookDto buy(String id, BuyRequest request) {
 //        Book book = bookRepository.findById(id)
 //                .orElseThrow(() -> new BookNotFoundException(id));

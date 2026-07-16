@@ -32,20 +32,8 @@ public interface BookRepository extends JpaRepository<Book, String> { //Il primo
 //    }
 
     public List<Book> findByName(String title);
-//
-//    public int delete(String id){
-//
-//        Optional<Book> book = findById(id);
-//
-//        if(book.isPresent()){
-//            books.removeIf(it -> it.getId().equals(id));
-//            return 1;
-//        }
-//        else {
-//            return 0;
-//        }
-//
-//    }
+
+
 //
 //    public int update(String id, Book updated) {
 //        Optional<Book> optionalBook = findById(id);

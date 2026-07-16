@@ -74,15 +74,15 @@ public class BookController {
     ){
         return bookService.findByName(name);
     }
-//
-//    @DeleteMapping("/{id}/v1")
-//    @ResponseStatus(HttpStatus.NO_CONTENT)
-//    public void delete(
-//            @PathVariable String id
-//    ){
-//       bookService.delete(id);
-//    }
-//
+
+    @DeleteMapping("/{id}/v1")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(
+            @PathVariable String id
+    ){
+       bookService.delete(id);
+    }
+
 //    @PostMapping("/{id}/buy/v1")
 //    @ResponseStatus(HttpStatus.OK)
 //    public BookDto buy(
