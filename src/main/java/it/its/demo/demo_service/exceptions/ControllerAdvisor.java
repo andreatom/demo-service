@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
@@ -25,8 +28,15 @@ public class ControllerAdvisor {
 
     @ExceptionHandler(BookNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public String bookNotFound(BookNotFoundException e){
-        return e.getMessage();
+    public Map<String, Object> bookNotFound(BookNotFoundException e){
+
+        Map<String, Object> result = new HashMap<>();
+
+        result.put("timestamp", LocalDateTime.now());
+        result.put("status", HttpStatus.NOT_FOUND);
+        result.put("error", e.getMessage());
+
+        return result;
     }
 
     @ExceptionHandler(BooksNotAvailable.class)
