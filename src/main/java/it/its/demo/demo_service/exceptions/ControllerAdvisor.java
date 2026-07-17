@@ -11,6 +11,12 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class ControllerAdvisor {
 
+    @ExceptionHandler(BookDeletedException.class)
+    @ResponseStatus(HttpStatus.OK)
+    public String handleBookDeletedException(BookDeletedException e){
+        return e.getMessage();
+    }
+
     @ExceptionHandler(CustomException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String handleException(CustomException e){
@@ -35,5 +41,7 @@ public class ControllerAdvisor {
                 .map(err -> err.getField() + ": " + err.getDefaultMessage())
                 .collect(Collectors.joining(", "));
     }
+
+
 
 }

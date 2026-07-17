@@ -1,6 +1,7 @@
 package it.its.demo.demo_service.service;
 
 import it.its.demo.demo_service.dto.*;
+import it.its.demo.demo_service.exceptions.BookDeletedException;
 import it.its.demo.demo_service.exceptions.BookNotFoundException;
 import it.its.demo.demo_service.exceptions.BooksNotAvailable;
 import it.its.demo.demo_service.mapper.BookMapper;
@@ -54,7 +55,14 @@ public class BookService {
     }
 
     public void delete(String id) {
+
+        bookRepository.findById(id).orElseThrow(
+                () -> new BookNotFoundException(id)
+        );
+
         bookRepository.deleteById(id);
+
+        throw new BookDeletedException(id);
     }
 
     public BookDto buy(String id, BuyRequest request) {
