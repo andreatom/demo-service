@@ -17,14 +17,17 @@ import java.util.stream.Collectors;
 @Service
 public class BookService {
 
-    @Autowired
-    private BookMapper bookMapper;
+    private final BookMapper bookMapper;
 
-    @Autowired
-    private BookRepository bookRepository;
+    private final BookRepository bookRepository;
 
-    @Autowired
-    private TransactionRepository transactionRepository;
+    private final TransactionRepository transactionRepository;
+
+    public BookService(BookMapper bookMapper, BookRepository bookRepository, TransactionRepository transactionRepository) {
+        this.bookMapper = bookMapper;
+        this.bookRepository = bookRepository;
+        this.transactionRepository = transactionRepository;
+    }
 
     public BookDto insert(InsertBook insertBook) {
         Book book = bookMapper.toModel(insertBook);
