@@ -8,7 +8,6 @@ import it.its.demo.demo_service.model.Book;
 import it.its.demo.demo_service.model.Transaction;
 import it.its.demo.demo_service.repository.BookRepository;
 import it.its.demo.demo_service.repository.TransactionRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,13 +43,13 @@ public class BookService {
 
     public List<BookDto> findAll() {
         return bookRepository.findAll().stream()
-                .map(book -> bookMapper.toDto(book))
+                .map(bookMapper::toDto)
                 .collect(Collectors.toList());
     }
 
     public List<BookDto> findByName(String name) {
         return bookRepository.findByName(name).stream()
-                .map(book -> bookMapper.toDto(book))
+                .map(bookMapper::toDto)
                 .collect(Collectors.toList());
     }
 

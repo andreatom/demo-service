@@ -5,8 +5,6 @@ import it.its.demo.demo_service.dto.InsertBook;
 import it.its.demo.demo_service.model.Book;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
-
 @Component
 public class BookMapper {
 
@@ -22,7 +20,6 @@ public class BookMapper {
 
     public Book toModel(InsertBook bookDto){
         Book book = new Book();
-//        book.setId(UUID.randomUUID().toString());
         book.setName(bookDto.getName());
         book.setAuthor(bookDto.getAuthor());
         book.setQuantity(bookDto.getQuantity());
