@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface BookRepository extends JpaRepository<Book, String> { //Il primo parametro è il tipo dell'entità, il secondo è il tipo dell'id
 
-     List<Book> findByName(String title);
+     List<Book> findByName(String name);
 
 }
