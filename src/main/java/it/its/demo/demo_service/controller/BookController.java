@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @RestController
 @RequestMapping("/api/books")
 public class BookController {
@@ -33,37 +35,53 @@ public class BookController {
         return bookService.insert(book);
     }
 
-//    @PatchMapping("/{id}/v1")
-//    @ResponseStatus(HttpStatus.OK)
-//    public BookDto patch (
-//            @PathVariable String id,
-//            @RequestBody PatchBook patchBook
-//    ) {
-//        return bookService.patch(id, patchBook);
-//    }
-//
-//    @PutMapping("/{id}/v1")
-//    @ResponseStatus(HttpStatus.OK)
-//    public BookDto patch (
-//            @PathVariable String id,
-//            @RequestBody InsertBook insertBook
-//    ) {
-//        return bookService.put(id, insertBook);
-//    }
-//
-//    @GetMapping("/v1")
-//    @ResponseStatus(HttpStatus.OK)
-//    public List<BookDto> findAll(){
-//        return bookService.findAll();
-//    }
-//
-//    @GetMapping("/{id}/v1")
-//    @ResponseStatus(HttpStatus.OK)
-//    public BookDto findById(
-//            @PathVariable String id
-//    ){
-//        return bookService.findById(id);
-//    }
+    @PatchMapping("/{id}/v1")
+    @ResponseStatus(HttpStatus.OK)
+    public BookDto patch (
+            @PathVariable String id,
+            @RequestBody PatchBook patchBook
+    ) {
+        return bookService.patch(id, patchBook);
+    }
+
+    @PatchMapping("/v1")
+    @ResponseStatus(HttpStatus.OK)
+    public BookDto patch (
+            @Valid @RequestBody PatchBookWithId patchBook
+    ) {
+        return bookService.patch(patchBook);
+    }
+
+    @PutMapping("/{id}/v1")
+    @ResponseStatus(HttpStatus.OK)
+    public BookDto patch (
+            @PathVariable String id,
+            @RequestBody InsertBook insertBook
+    ) {
+        return bookService.put(id, insertBook);
+    }
+
+    @PutMapping("/v1")
+    @ResponseStatus(HttpStatus.OK)
+    public BookDto put (
+            @Valid @RequestBody PutBook putBook
+    ) {
+        return bookService.put(putBook);
+    }
+
+    @GetMapping("/v1")
+    @ResponseStatus(HttpStatus.OK)
+    public List<BookDto> findAll(){
+        return bookService.findAll();
+    }
+
+    @GetMapping("/{id}/v1")
+    @ResponseStatus(HttpStatus.OK)
+    public BookDto findById(
+            @PathVariable String id
+    ){
+        return bookService.findById(id);
+    }
 //
 //    @GetMapping("/search/v1")
 //    @ResponseStatus(HttpStatus.OK)
@@ -73,13 +91,13 @@ public class BookController {
 //        return bookService.findByName(name);
 //    }
 //
-//    @DeleteMapping("/{id}/v1")
-//    @ResponseStatus(HttpStatus.NO_CONTENT)
-//    public void delete(
-//            @PathVariable String id
-//    ){
-//       bookService.delete(id);
-//    }
+    @DeleteMapping("/{id}/v1")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(
+            @PathVariable String id
+    ){
+       bookService.delete(id);
+    }
 //
 //    @PostMapping("/{id}/buy/v1")
 //    @ResponseStatus(HttpStatus.OK)

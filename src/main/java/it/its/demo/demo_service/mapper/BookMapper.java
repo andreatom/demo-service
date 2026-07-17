@@ -1,7 +1,6 @@
 package it.its.demo.demo_service.mapper;
 
-import it.its.demo.demo_service.dto.BookDto;
-import it.its.demo.demo_service.dto.InsertBook;
+import it.its.demo.demo_service.dto.*;
 import it.its.demo.demo_service.model.Book;
 import org.springframework.stereotype.Component;
 
@@ -29,5 +28,36 @@ public class BookMapper {
         book.setPrice(bookDto.getPrice());
         return book;
     }
+
+    public Book toModel(String id, PatchBook patchBook){
+        Book book = new Book();
+        book.setId(id);
+        book.setName(patchBook.getName());
+        book.setAuthor(patchBook.getAuthor());
+        book.setQuantity(patchBook.getQuantity());
+        book.setPrice(patchBook.getPrice());
+        return book;
+    }
+
+    public Book toModel(PatchBookWithId patchBook){
+        Book book = new Book();
+        book.setId(patchBook.getId());
+        book.setName(patchBook.getName());
+        book.setAuthor(patchBook.getAuthor());
+        book.setQuantity(patchBook.getQuantity());
+        book.setPrice(patchBook.getPrice());
+        return book;
+    }
+
+    public Book toModel(PutBook bookDto){
+        Book book = new Book();
+        book.setId(bookDto.getId());
+        book.setName(bookDto.getName());
+        book.setAuthor(bookDto.getAuthor());
+        book.setQuantity(bookDto.getQuantity());
+        book.setPrice(bookDto.getPrice());
+        return book;
+    }
+
 
 }
