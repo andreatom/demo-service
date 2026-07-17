@@ -91,12 +91,12 @@ public class BookController {
     ){
         return bookService.buy(id, buyRequest);
     }
-//
-//    @GetMapping("/{id}/buy/total/v1")
-//    @ResponseStatus(HttpStatus.OK)
-//    public TransactionTotalDto transactionTotal(
-//            @PathVariable String id
-//    ){
-//        return bookService.total(id);
-//    }
+
+    @GetMapping("/{id}/buy/total/v1")
+    @ResponseStatus(HttpStatus.OK)
+    public TransactionTotalDto transactionTotal(
+            @PathVariable String id
+    ){
+        return bookService.total(id);
+    }
 }
