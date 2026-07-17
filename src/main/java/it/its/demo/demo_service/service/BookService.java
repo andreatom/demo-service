@@ -101,24 +101,21 @@ public class BookService {
 //
 //        return bookMapper.toDto(toUpdate);
 //    }
-//
-//    // BookInsertDto -> BookDto
-//    public BookDto put(String id, InsertBook insert) {
-//
-//        Book toUpdate = bookRepository.findById(id)
-//                .orElseThrow(() -> new BookNotFoundException(id));
-//
-//        toUpdate.setAuthor(insert.getAuthor());
-//        toUpdate.setName(insert.getName());
-//        toUpdate.setQuantity(insert.getQuantity());
-//
-//        int result = bookRepository.update(id, toUpdate);
-//        if(result == 0){
-//            throw new BookNotFoundException(id);
-//        }
-//
-//        return bookMapper.toDto(toUpdate);
-//    }
+
+    // BookInsertDto -> BookDto
+    public BookDto put(String id, InsertBook insert) {
+
+        Book toUpdate = bookRepository.findById(id)
+                .orElseThrow(() -> new BookNotFoundException(id));
+
+        toUpdate.setAuthor(insert.getAuthor());
+        toUpdate.setName(insert.getName());
+        toUpdate.setQuantity(insert.getQuantity());
+
+        bookRepository.save(toUpdate);
+
+        return bookMapper.toDto(toUpdate);
+    }
 
     public TransactionTotalDto total(String id) {
         List<Transaction> transactions = transactionRepository.findByBookId(id);

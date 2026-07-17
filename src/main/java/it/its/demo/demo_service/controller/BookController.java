@@ -43,16 +43,16 @@ public class BookController {
 //    ) {
 //        return bookService.patch(id, patchBook);
 //    }
-//
-//    @PutMapping("/{id}/v1")
-//    @ResponseStatus(HttpStatus.OK)
-//    public BookDto patch (
-//            @PathVariable String id,
-//            @RequestBody InsertBook insertBook
-//    ) {
-//        return bookService.put(id, insertBook);
-//    }
-//
+
+    @PutMapping("/{id}/v1")
+    @ResponseStatus(HttpStatus.OK)
+    public BookDto patch (
+            @PathVariable String id,
+            @RequestBody InsertBook insertBook
+    ) {
+        return bookService.put(id, insertBook);
+    }
+
     @GetMapping("/v1")
     @ResponseStatus(HttpStatus.OK)
     public List<BookDto> findAll(){
