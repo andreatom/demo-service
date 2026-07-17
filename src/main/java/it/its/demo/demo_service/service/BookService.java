@@ -55,29 +55,25 @@ public class BookService {
         bookRepository.deleteById(id);
     }
 
-//    public BookDto buy(String id, BuyRequest request) {
-//        Book book = bookRepository.findById(id)
-//                .orElseThrow(() -> new BookNotFoundException(id));
-//
-//        if (book.getQuantity() <= request.getQuantity() - 1) {
-//            throw new BooksNotAvailable(id, request.getQuantity());
-//        }
-//
-//        book.setQuantity(book.getQuantity() - request.getQuantity());
-//
-//        Transaction transaction = new Transaction();
-//        transaction.setBookId(id);
-//        transaction.setTotal(request.getQuantity()*book.getPrice());
-//
-//        transactionRepository.saveTransaction(transaction);
-//
-//        int result = bookRepository.update(id, book);
-//        if(result == 0){
-//            throw new BookNotFoundException(id);
-//        }
-//
-//        return bookMapper.toDto(book);
-//    }
+    public BookDto buy(String id, BuyRequest request) {
+        Book book = bookRepository.findById(id)
+                .orElseThrow(() -> new BookNotFoundException(id));
+
+        if (book.getQuantity() < request.getQuantity()) {
+            throw new BooksNotAvailable(id, request.getQuantity());
+        }
+
+        book.setQuantity(book.getQuantity() - request.getQuantity());
+
+        Transaction transaction = new Transaction();
+        transaction.setBookId(id);
+        transaction.setTotal(request.getQuantity()*book.getPrice());
+
+        transactionRepository.saveTransaction(transaction);
+
+        bookRepository.save(book);
+        return bookMapper.toDto(book);
+    }
 //
 //
 //    // PatchBook -> BookDto
@@ -123,17 +119,17 @@ public class BookService {
 //
 //        return bookMapper.toDto(toUpdate);
 //    }
-//
-//    public TransactionTotalDto total(String id) {
-//        List<Transaction> transactions = transactionRepository.findByBookId(id);
-//        Float total = transactions.stream().
-//                map(Transaction::getTotal)
-//                .reduce((float) 0, Float::sum);
-//
-//        TransactionTotalDto transactionTotalDto = new TransactionTotalDto();
-//        transactionTotalDto.setBookId(id);
-//        transactionTotalDto.setTotal(total);
-//        return transactionTotalDto;
-//    }
+
+    public TransactionTotalDto total(String id) {
+        List<Transaction> transactions = transactionRepository.findByBookId(id);
+        Float total = transactions.stream().
+                map(Transaction::getTotal)
+                .reduce((float) 0, Float::sum);
+
+        TransactionTotalDto transactionTotalDto = new TransactionTotalDto();
+        transactionTotalDto.setBookId(id);
+        transactionTotalDto.setTotal(total);
+        return transactionTotalDto;
+    }
 
 }

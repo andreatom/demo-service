@@ -83,14 +83,14 @@ public class BookController {
        bookService.delete(id);
     }
 
-//    @PostMapping("/{id}/buy/v1")
-//    @ResponseStatus(HttpStatus.OK)
-//    public BookDto buy(
-//            @PathVariable String id,
-//            @Valid @RequestBody BuyRequest buyRequest
-//    ){
-//        return bookService.buy(id, buyRequest);
-//    }
+    @PostMapping("/{id}/buy/v1")
+    @ResponseStatus(HttpStatus.OK)
+    public BookDto buy(
+            @PathVariable String id,
+            @Valid @RequestBody BuyRequest buyRequest
+    ){
+        return bookService.buy(id, buyRequest);
+    }
 //
 //    @GetMapping("/{id}/buy/total/v1")
 //    @ResponseStatus(HttpStatus.OK)
