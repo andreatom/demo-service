@@ -71,7 +71,7 @@ public class BookService {
         transaction.setBookId(id);
         transaction.setTotal(request.getQuantity()*book.getPrice());
 
-        transactionRepository.saveTransaction(transaction);
+        transactionRepository.save(transaction);
 
         bookRepository.save(book);
         return bookMapper.toDto(book);
@@ -96,6 +96,10 @@ public class BookService {
             toUpdate.setQuantity(patchBook.getQuantity());
         }
 
+        if (patchBook.getPrice() != null) {
+            toUpdate.setPrice(patchBook.getPrice());
+        }
+
         bookRepository.save(toUpdate);
 
         return bookMapper.toDto(toUpdate);
@@ -110,6 +114,7 @@ public class BookService {
         toUpdate.setAuthor(insert.getAuthor());
         toUpdate.setName(insert.getName());
         toUpdate.setQuantity(insert.getQuantity());
+        toUpdate.setPrice(insert.getPrice());
 
         bookRepository.save(toUpdate);
 
@@ -117,9 +122,9 @@ public class BookService {
     }
 
     public TransactionTotalDto total(String id) {
-        List<Transaction> transactions = transactionRepository.findByBookId(id);
-        Float total = transactions.stream().
-                map(Transaction::getTotal)
+        Float total = transactionRepository.findAll().stream()
+                .filter(t -> t.getBookId().equals(id))
+                .map(Transaction::getTotal)
                 .reduce((float) 0, Float::sum);
 
         TransactionTotalDto transactionTotalDto = new TransactionTotalDto();
