@@ -35,14 +35,14 @@ public class BookController {
         return bookService.insert(book);
     }
 
-//    @PatchMapping("/{id}/v1")
-//    @ResponseStatus(HttpStatus.OK)
-//    public BookDto patch (
-//            @PathVariable String id,
-//            @RequestBody PatchBook patchBook
-//    ) {
-//        return bookService.patch(id, patchBook);
-//    }
+    @PatchMapping("/{id}/v1")
+    @ResponseStatus(HttpStatus.OK)
+    public BookDto patch (
+            @PathVariable String id,
+            @RequestBody PatchBook patchBook
+    ) {
+        return bookService.patch(id, patchBook);
+    }
 
     @PutMapping("/{id}/v1")
     @ResponseStatus(HttpStatus.OK)

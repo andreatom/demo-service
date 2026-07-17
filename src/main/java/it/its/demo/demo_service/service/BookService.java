@@ -74,33 +74,30 @@ public class BookService {
         bookRepository.save(book);
         return bookMapper.toDto(book);
     }
-//
-//
-//    // PatchBook -> BookDto
-//    public BookDto patch(String id, PatchBook patchBook) {
-//
-//        Book toUpdate = bookRepository.findById(id)
-//                .orElseThrow(() -> new BookNotFoundException(id));
-//
-//        if (patchBook.getAuthor() != null) {
-//            toUpdate.setAuthor(patchBook.getAuthor());
-//        }
-//
-//        if (patchBook.getName() != null) {
-//            toUpdate.setName(patchBook.getName());
-//        }
-//
-//        if (patchBook.getQuantity() != null) {
-//            toUpdate.setQuantity(patchBook.getQuantity());
-//        }
-//
-//        int result = bookRepository.update(id, toUpdate);
-//        if(result == 0){
-//            throw new BookNotFoundException(id);
-//        }
-//
-//        return bookMapper.toDto(toUpdate);
-//    }
+
+
+    // PatchBook -> BookDto
+    public BookDto patch(String id, PatchBook patchBook) {
+
+        Book toUpdate = bookRepository.findById(id)
+                .orElseThrow(() -> new BookNotFoundException(id));
+
+        if (patchBook.getAuthor() != null) {
+            toUpdate.setAuthor(patchBook.getAuthor());
+        }
+
+        if (patchBook.getName() != null) {
+            toUpdate.setName(patchBook.getName());
+        }
+
+        if (patchBook.getQuantity() != null) {
+            toUpdate.setQuantity(patchBook.getQuantity());
+        }
+
+        bookRepository.save(toUpdate);
+
+        return bookMapper.toDto(toUpdate);
+    }
 
     // BookInsertDto -> BookDto
     public BookDto put(String id, InsertBook insert) {
