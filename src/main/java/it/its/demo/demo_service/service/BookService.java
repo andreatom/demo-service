@@ -3,15 +3,11 @@ package it.its.demo.demo_service.service;
 import it.its.demo.demo_service.dto.*;
 import it.its.demo.demo_service.exceptions.BookDeletedException;
 import it.its.demo.demo_service.exceptions.BookNotFoundException;
-import it.its.demo.demo_service.exceptions.BooksNotAvailable;
 import it.its.demo.demo_service.mapper.AuthorMapper;
 import it.its.demo.demo_service.mapper.BookMapper;
-import it.its.demo.demo_service.model.Author;
 import it.its.demo.demo_service.model.Book;
-import it.its.demo.demo_service.model.Transaction;
 import it.its.demo.demo_service.repository.BookRepository;
 import it.its.demo.demo_service.repository.TransactionRepository;
-import org.apache.catalina.mapper.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
