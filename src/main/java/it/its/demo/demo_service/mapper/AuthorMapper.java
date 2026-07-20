@@ -8,23 +8,35 @@ import org.springframework.stereotype.Component;
 @Component
 public class AuthorMapper {
 
-    public AuthorDto toDto(Author author){
+    public AuthorDto toDto(Author author) {
         AuthorDto authorDto = new AuthorDto();
+
         authorDto.setId(author.getId());
         authorDto.setName(author.getName());
+        authorDto.setBooks(author.getBooks());
+
         return authorDto;
     }
 
-    public Author toModel(AuthorDto authorDto){
+    public Author toModel(AuthorDto authorDto) {
+
         Author author = new Author();
+
         author.setId(authorDto.getId());
         author.setName(authorDto.getName());
+
         return author;
     }
 
-    public Author toModel(InsertAuthorDto insertAuthorDto){
+    public Author toModel(InsertAuthorDto insertAuthorDto) {
+
         Author author = new Author();
+
         author.setName(insertAuthorDto.getName());
+
         return author;
     }
+
+
+
 }

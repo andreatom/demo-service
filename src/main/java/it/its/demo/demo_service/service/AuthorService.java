@@ -6,34 +6,33 @@ import it.its.demo.demo_service.exceptions.AuthorNotFoundException;
 import it.its.demo.demo_service.mapper.AuthorMapper;
 import it.its.demo.demo_service.model.Author;
 import it.its.demo.demo_service.repository.AuthorRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AuthorService {
 
-    private final AuthorRepository authorRepository;
+    @Autowired
+    private AuthorRepository authorRepository;
 
-    private final AuthorMapper authorMapper;
-
-    public AuthorService(AuthorRepository authorRepository, AuthorMapper authorMapper) {
-        this.authorRepository = authorRepository;
-        this.authorMapper = authorMapper;
-    }
+    @Autowired
+    private AuthorMapper authorMapper;
 
     public AuthorDto findById(Integer id) {
         Author author = authorRepository.findById(id).orElseThrow(
                 () -> new AuthorNotFoundException(id)
         );
+
         return authorMapper.toDto(author);
     }
 
-    public AuthorDto insert(InsertAuthorDto insertAuthorDto){
-        return authorMapper.toDto(
-                authorRepository.save(
-                        authorMapper.toModel(
-                                insertAuthorDto
-                        )
-                )
-        );
+    public AuthorDto insert(InsertAuthorDto insertAuthorDto) {
+
+        Author author = authorMapper.toModel(insertAuthorDto);
+
+        authorRepository.save(author);
+
+        return authorMapper.toDto(author);
     }
+
 }

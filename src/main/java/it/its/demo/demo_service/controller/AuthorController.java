@@ -2,6 +2,7 @@ package it.its.demo.demo_service.controller;
 
 import it.its.demo.demo_service.dto.AuthorDto;
 import it.its.demo.demo_service.dto.InsertAuthorDto;
+import it.its.demo.demo_service.model.Author;
 import it.its.demo.demo_service.service.AuthorService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class AuthorController {
     @ResponseStatus(HttpStatus.OK)
     public AuthorDto findById(
             @PathVariable Integer id
-    ){
+    ) {
         return authorService.findById(id);
     }
 
@@ -27,9 +28,10 @@ public class AuthorController {
     @ResponseStatus(HttpStatus.CREATED)
     public AuthorDto insert(
             @Valid @RequestBody InsertAuthorDto insertAuthorDto
-            ){
+            ) {
         return authorService.insert(insertAuthorDto);
     }
+
 
 
 }
