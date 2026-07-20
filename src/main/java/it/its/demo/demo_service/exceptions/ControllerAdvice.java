@@ -13,13 +13,7 @@ import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class ControllerAdvice {
-
-    @ExceptionHandler(BookDeletedException.class)
-    @ResponseStatus(HttpStatus.OK)
-    public String handleBookDeletedException(BookDeletedException e){
-        return e.getMessage();
-    }
-
+    
     @ExceptionHandler(AuthorNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String handleAuthorNotFoundException(AuthorNotFoundException e){
@@ -63,13 +57,5 @@ public class ControllerAdvice {
                 .map(err -> err.getField() + ": " + err.getDefaultMessage())
                 .collect(Collectors.joining(", "));
     }
-
-    @ExceptionHandler(AuthorNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public String handleAuthorNotFound(AuthorNotFoundException e){
-        return e.getMessage();
-    }
-
-
 
 }

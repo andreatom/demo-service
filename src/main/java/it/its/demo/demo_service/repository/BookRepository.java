@@ -15,9 +15,6 @@ public interface BookRepository extends JpaRepository<Book, String> { //Il primo
 
     public List<Book> findByName(String name);
 
-    @Query("select b from Book b where b.name = :name")
-    public List<Book> findByNameWithQuery(@Param("name") String name);
-
 //     I due punti nella query indicano che si tratta di un parametro
      @Query("SELECT b FROM Book b WHERE b.name = :name")
      List<Book> findByNameWithQuery(@Param("name") String name);
