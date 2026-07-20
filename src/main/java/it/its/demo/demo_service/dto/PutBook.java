@@ -9,7 +9,7 @@ public class PutBook extends InsertBook{
     @NotBlank(message = "Id cannot be blank")
     String id;
 
-    public PutBook(String name, String author, Integer quantity, Float price) {
+    public PutBook(String name, Integer author, Integer quantity, Float price) {
         super(name, author, quantity, price);
     }
 }

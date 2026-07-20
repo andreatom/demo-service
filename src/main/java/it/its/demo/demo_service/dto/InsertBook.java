@@ -14,7 +14,8 @@ public class InsertBook {
     String name;
 
     @NotBlank(message = "Author cannot be blank")
-    String author;
+    @Positive(message = "Author cannot be null or negative")
+    Integer author;
 
     @NotNull(message = "Quantity cannot be null or negative")
     @Positive(message = "Quantity cannot be null or negative")

@@ -9,7 +9,7 @@ public class PatchBookWithId extends PatchBook{
     @NotBlank(message = "Id cannot be blank")
     String id;
 
-    public PatchBookWithId(String name, String author, Integer quantity, Float price) {
+    public PatchBookWithId(String name, Integer author, Integer quantity, Float price) {
         super(name, author, quantity, price);
     }
 }

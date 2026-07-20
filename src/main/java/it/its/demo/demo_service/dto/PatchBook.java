@@ -10,7 +10,7 @@ import lombok.Data;
 public class PatchBook {
 
     String name;
-    String author;
+    Integer author;
     @Positive(message = "Quantity cannot be negative")
     Integer quantity;
     @Positive
