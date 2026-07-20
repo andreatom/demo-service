@@ -64,6 +64,12 @@ public class ControllerAdvice {
                 .collect(Collectors.joining(", "));
     }
 
+    @ExceptionHandler(AuthorNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String handleAuthorNotFound(AuthorNotFoundException e){
+        return e.getMessage();
+    }
+
 
 
 }
