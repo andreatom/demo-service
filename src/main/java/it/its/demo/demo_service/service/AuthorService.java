@@ -1,6 +1,7 @@
 package it.its.demo.demo_service.service;
 
 import it.its.demo.demo_service.dto.AuthorDto;
+import it.its.demo.demo_service.dto.InsertAuthorDto;
 import it.its.demo.demo_service.exceptions.AuthorNotFoundException;
 import it.its.demo.demo_service.mapper.AuthorMapper;
 import it.its.demo.demo_service.model.Author;
@@ -26,9 +27,13 @@ public class AuthorService {
         return authorMapper.toDto(author);
     }
 
-    public Author findModelById(Integer id){
-        return authorRepository.findById(id).orElseThrow(
-                 () -> new AuthorNotFoundException(id)
+    public AuthorDto insert(InsertAuthorDto insertAuthorDto){
+        return authorMapper.toDto(
+                authorRepository.save(
+                        authorMapper.toModel(
+                                insertAuthorDto
+                        )
+                )
         );
     }
 }

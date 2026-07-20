@@ -13,7 +13,7 @@ public class InsertBook {
     @NotBlank(message = "Name cannot be blank")
     String name;
 
-    @NotBlank(message = "Author cannot be blank")
+    @NotNull(message = "Author cannot be null")
     @Positive(message = "Author cannot be null or negative")
     Integer author;
 

@@ -1,6 +1,7 @@
 package it.its.demo.demo_service.mapper;
 
 import it.its.demo.demo_service.dto.AuthorDto;
+import it.its.demo.demo_service.dto.InsertAuthorDto;
 import it.its.demo.demo_service.model.Author;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +19,12 @@ public class AuthorMapper {
         Author author = new Author();
         author.setId(authorDto.getId());
         author.setName(authorDto.getName());
+        return author;
+    }
+
+    public Author toModel(InsertAuthorDto insertAuthorDto){
+        Author author = new Author();
+        author.setName(insertAuthorDto.getName());
         return author;
     }
 }
