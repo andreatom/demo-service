@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @RestController
 @RequestMapping("/api/books")
 public class BookController {
@@ -20,9 +22,7 @@ public class BookController {
 
     @PostMapping("/v1")
     @ResponseStatus(HttpStatus.CREATED)
-    public BookDto insert (
-            @Valid @RequestBody InsertBook book
-    ) {
+    public BookDto insert (@Valid @RequestBody InsertBook book) {
         return bookService.insert(book);
     }
 
@@ -35,6 +35,14 @@ public class BookController {
         return bookService.patch(id, patchBook);
     }
 
+    @PatchMapping("/v1")
+    @ResponseStatus(HttpStatus.OK)
+    public BookDto patch (
+            @Valid @RequestBody PatchBookWithId patchBook
+    ) {
+        return bookService.patch(patchBook);
+    }
+
     @PutMapping("/{id}/v1")
     @ResponseStatus(HttpStatus.OK)
     public BookDto patch (
@@ -42,6 +50,14 @@ public class BookController {
             @RequestBody InsertBook insertBook
     ) {
         return bookService.put(id, insertBook);
+    }
+
+    @PutMapping("/v1")
+    @ResponseStatus(HttpStatus.OK)
+    public BookDto put (
+            @Valid @RequestBody PutBook putBook
+    ) {
+        return bookService.put(putBook);
     }
 
     @GetMapping("/v1")
@@ -57,15 +73,15 @@ public class BookController {
     ){
         return bookService.findById(id);
     }
-
-    @GetMapping("/search/v1")
-    @ResponseStatus(HttpStatus.OK)
-    public List<BookDto> findByName(
-            @RequestParam String name
-    ){
-        return bookService.findByName(name);
-    }
-
+//
+//    @GetMapping("/search/v1")
+//    @ResponseStatus(HttpStatus.OK)
+//    public List<BookDto> findByName(
+//            @RequestParam String name
+//    ){
+//        return bookService.findByName(name);
+//    }
+//
     @DeleteMapping("/{id}/v1")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(
@@ -73,21 +89,21 @@ public class BookController {
     ){
        bookService.delete(id);
     }
-
-    @PostMapping("/{id}/buy/v1")
-    @ResponseStatus(HttpStatus.OK)
-    public BookDto buy(
-            @PathVariable String id,
-            @Valid @RequestBody BuyRequest buyRequest
-    ){
-        return bookService.buy(id, buyRequest);
-    }
-
-    @GetMapping("/{id}/buy/total/v1")
-    @ResponseStatus(HttpStatus.OK)
-    public TransactionTotalDto transactionTotal(
-            @PathVariable String id
-    ){
-        return bookService.total(id);
-    }
+//
+//    @PostMapping("/{id}/buy/v1")
+//    @ResponseStatus(HttpStatus.OK)
+//    public BookDto buy(
+//            @PathVariable String id,
+//            @Valid @RequestBody BuyRequest buyRequest
+//    ){
+//        return bookService.buy(id, buyRequest);
+//    }
+//
+//    @GetMapping("/{id}/buy/total/v1")
+//    @ResponseStatus(HttpStatus.OK)
+//    public TransactionTotalDto transactionTotal(
+//            @PathVariable String id
+//    ){
+//        return bookService.total(id);
+//    }
 }
