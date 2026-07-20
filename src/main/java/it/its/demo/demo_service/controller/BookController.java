@@ -82,15 +82,15 @@ public class BookController {
     ){
         return bookService.findById(id);
     }
-//
-//    @GetMapping("/search/v1")
-//    @ResponseStatus(HttpStatus.OK)
-//    public List<BookDto> findByName(
-//            @RequestParam String name
-//    ){
-//        return bookService.findByName(name);
-//    }
-//
+
+    @GetMapping("/search/v1")
+    @ResponseStatus(HttpStatus.OK)
+    public List<BookDto> findByName(
+            @RequestParam String name
+    ){
+        return bookService.findByName(name);
+    }
+
     @DeleteMapping("/{id}/v1")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(

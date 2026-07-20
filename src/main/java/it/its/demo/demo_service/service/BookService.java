@@ -4,7 +4,9 @@ import it.its.demo.demo_service.dto.*;
 import it.its.demo.demo_service.exceptions.BookDeletedException;
 import it.its.demo.demo_service.exceptions.BookNotFoundException;
 import it.its.demo.demo_service.exceptions.BooksNotAvailable;
+import it.its.demo.demo_service.mapper.AuthorMapper;
 import it.its.demo.demo_service.mapper.BookMapper;
+import it.its.demo.demo_service.model.Author;
 import it.its.demo.demo_service.model.Book;
 import it.its.demo.demo_service.model.Transaction;
 import it.its.demo.demo_service.repository.BookRepository;
@@ -23,13 +25,22 @@ public class BookService {
     private BookMapper bookMapper;
 
     @Autowired
+    private AuthorMapper authorMapper;
+
+    @Autowired
     private BookRepository bookRepository;
+
+    @Autowired
+    private AuthorService authorService;
 
     @Autowired
     private TransactionRepository transactionRepository;
 
     public BookDto insert(InsertBook insertBook) {
-        Book book = bookMapper.toModel(insertBook);
+
+        AuthorDto authorDto = authorService.findById(insertBook.getAuthor());
+
+        Book book = bookMapper.toModel(insertBook, authorDto);
         bookRepository.save(book);
         return bookMapper.toDto(book);
     }
@@ -46,13 +57,13 @@ public class BookService {
                 .map(book -> bookMapper.toDto(book))
                 .collect(Collectors.toList());
     }
-//
-//    public List<BookDto> findByName(String name) {
-//        return bookRepository.findByName(name).stream()
-//                .map(book -> bookMapper.toDto(book))
-//                .collect(Collectors.toList());
-//    }
-//
+
+    public List<BookDto> findByName(String name) {
+        return bookRepository.findByNameWithQuery(name).stream()
+                .map(book -> bookMapper.toDto(book))
+                .collect(Collectors.toList());
+    }
+
     public void delete(String id) {
 
         bookRepository.findById(id).orElseThrow(
@@ -96,7 +107,11 @@ public class BookService {
                 .orElseThrow(() -> new BookNotFoundException(id));
 
         if (patchBook.getAuthor() != null) {
-            toUpdate.setAuthor(patchBook.getAuthor());
+            toUpdate.setAuthor(
+                    authorMapper.toModel(
+                            authorService.findById(patchBook.getAuthor())
+                    )
+            );
         }
 
         if (patchBook.getName() != null) {
@@ -120,7 +135,11 @@ public class BookService {
                 .orElseThrow(() -> new BookNotFoundException(patchBook.getId()));
 
         if (patchBook.getAuthor() != null) {
-            toUpdate.setAuthor(patchBook.getAuthor());
+            toUpdate.setAuthor(
+                    authorMapper.toModel(
+                            authorService.findById(patchBook.getAuthor())
+                    )
+            );
         }
 
         if (patchBook.getName() != null) {
@@ -144,7 +163,8 @@ public class BookService {
         bookRepository.findById(id)
                 .orElseThrow(() -> new BookNotFoundException(id));
 
-        Book bookToPut = bookMapper.toModel(insert);
+        AuthorDto authorDto = authorService.findById(insert.getAuthor());
+        Book bookToPut = bookMapper.toModel(insert, authorDto);
         bookToPut.setId(id);
 
         return bookMapper.toDto(bookRepository.save(bookToPut));
@@ -156,7 +176,8 @@ public class BookService {
         bookRepository.findById(insert.getId())
                 .orElseThrow(() -> new BookNotFoundException(insert.getId()));
 
-        Book bookToPut = bookMapper.toModel(insert);
+        AuthorDto authorDto = authorService.findById(insert.getAuthor());
+        Book bookToPut = bookMapper.toModel(insert, authorDto);
         return bookMapper.toDto(bookRepository.save(bookToPut));
 
     }

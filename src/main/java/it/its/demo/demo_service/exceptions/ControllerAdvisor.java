@@ -14,6 +14,12 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class ControllerAdvisor {
 
+    @ExceptionHandler(AuthorNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String handleAuthorNotFoundException(AuthorNotFoundException e){
+        return e.getMessage();
+    }
+
     @ExceptionHandler(BookDeletedException.class)
     @ResponseStatus(HttpStatus.OK)
     public String handleBookDeletedException(BookDeletedException e){
