@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
-public class ControllerAdvisor {
+public class ControllerAdvice {
 
     @ExceptionHandler(BookDeletedException.class)
     @ResponseStatus(HttpStatus.OK)

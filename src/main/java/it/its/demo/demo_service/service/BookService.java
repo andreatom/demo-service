@@ -49,7 +49,7 @@ public class BookService {
     }
 
     public List<BookDto> findByName(String name) {
-        return bookRepository.findByName(name).stream()
+        return bookRepository.findByNameWithQuery(name).stream()
                 .map(bookMapper::toDto)
                 .collect(Collectors.toList());
     }
