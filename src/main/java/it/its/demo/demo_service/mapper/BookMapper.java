@@ -15,9 +15,14 @@ public class BookMapper {
 
     public BookDto toDto(Book book){
         BookDto bookDto = new BookDto();
+        AuthorWithoutBooksDto authorWithoutBooksDto =
+                new AuthorWithoutBooksDto(
+                        book.getAuthor().getId(),
+                        book.getAuthor().getName()
+                );
         bookDto.setId(book.getId());
         bookDto.setName(book.getName());
-        bookDto.setAuthor(book.getAuthor());
+        bookDto.setAuthor(authorWithoutBooksDto);
         bookDto.setQuantity(book.getQuantity());
         bookDto.setPrice(book.getPrice());
         return bookDto;

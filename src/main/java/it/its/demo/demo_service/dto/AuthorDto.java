@@ -14,6 +14,6 @@ public class AuthorDto {
 
     Integer id;
     String name;
-    List<Book> books;
+    List<BookWithoutAuthorDto> books;
 
 }

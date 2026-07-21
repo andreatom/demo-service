@@ -1,6 +1,5 @@
 package it.its.demo.demo_service.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,11 +14,14 @@ import java.util.List;
 public class Author {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
     String name;
 
+//    Questa annotazione dice ad Hybernate di non creare un'altra colonna o tabella perchè questo lato della relazione è
+//    il lato "padre" della relazione, quindi non ha bisogno di una colonna per la relazione.
+//    La colonna per la relazione sarà creata nella tabella "Book" con la colonna "fk_author_id"
+//    che fa riferimento alla tabella "Author".
     @OneToMany(mappedBy = "author")
-    @JsonManagedReference
     private List<Book> books;
 }

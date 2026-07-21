@@ -19,9 +19,9 @@ public class Book {
     Integer quantity;
     Float price;
 
+//    Questo è il lato che possiede la relazione: genera la colonna fk_author_id nella tabella book
     @ManyToOne
     @JoinColumn(name = "fk_author_id")
-    @JsonBackReference
     Author author;
 }
 
