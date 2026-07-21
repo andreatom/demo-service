@@ -1,7 +1,7 @@
 package it.its.demo.demo_service.service;
 
-import it.its.demo.demo_service.dto.AuthorDto;
-import it.its.demo.demo_service.dto.InsertAuthorDto;
+import it.its.demo.demo_service.dto.author.ResAuthorDto;
+import it.its.demo.demo_service.dto.author.ResInsertAuthorDto;
 import it.its.demo.demo_service.exceptions.AuthorNotFoundException;
 import it.its.demo.demo_service.mapper.AuthorMapper;
 import it.its.demo.demo_service.model.Author;
@@ -18,7 +18,7 @@ public class AuthorService {
     @Autowired
     private AuthorMapper authorMapper;
 
-    public AuthorDto findById(Integer id) {
+    public ResAuthorDto findById(Integer id) {
         Author author = authorRepository.findById(id).orElseThrow(
                 () -> new AuthorNotFoundException(id)
         );
@@ -26,9 +26,9 @@ public class AuthorService {
         return authorMapper.toDto(author);
     }
 
-    public AuthorDto insert(InsertAuthorDto insertAuthorDto) {
+    public ResAuthorDto insert(ResInsertAuthorDto resInsertAuthorDto) {
 
-        Author author = authorMapper.toModel(insertAuthorDto);
+        Author author = authorMapper.toModel(resInsertAuthorDto);
 
         authorRepository.save(author);
 

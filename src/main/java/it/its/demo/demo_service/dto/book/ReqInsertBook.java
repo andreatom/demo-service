@@ -1,4 +1,4 @@
-package it.its.demo.demo_service.dto;
+package it.its.demo.demo_service.dto.book;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -8,7 +8,7 @@ import lombok.Data;
 
 @AllArgsConstructor
 @Data
-public class InsertBook {
+public class ReqInsertBook {
 
     @NotBlank(message = "Name cannot be blank")
     String name;

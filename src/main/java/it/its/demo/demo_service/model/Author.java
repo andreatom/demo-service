@@ -22,6 +22,6 @@ public class Author {
 //    il lato "padre" della relazione, quindi non ha bisogno di una colonna per la relazione.
 //    La colonna per la relazione sarà creata nella tabella "Book" con la colonna "fk_author_id"
 //    che fa riferimento alla tabella "Author".
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
     private List<Book> books;
 }

@@ -1,16 +1,18 @@
-package it.its.demo.demo_service.dto;
+package it.its.demo.demo_service.dto.author;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class BookWithoutAuthorDto {
-    String id;
+public class ResAuthorDto {
+
+    Integer id;
     String name;
-    Integer quantity;
-    Float price;
+    List<InnerBookDto> books;
 
 }

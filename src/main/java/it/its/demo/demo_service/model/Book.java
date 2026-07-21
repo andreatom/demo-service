@@ -19,18 +19,9 @@ public class Book {
     Integer quantity;
     Float price;
 
-//    Questo è il lato che possiede la relazione: genera la colonna fk_author_id nella tabella book
-    @ManyToOne
+//   Questo è il lato che possiede la relazione: genera la colonna fk_author_id nella tabella book
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "fk_author_id")
     Author author;
 }
 
-/*
-*
-* {
- *   "id": "1234",
- *   "name": "Il piccolo principe",
- *   "author": "Antoine"
-* }
-
-* */

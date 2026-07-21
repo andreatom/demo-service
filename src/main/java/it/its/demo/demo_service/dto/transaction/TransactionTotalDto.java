@@ -1,4 +1,4 @@
-package it.its.demo.demo_service.dto;
+package it.its.demo.demo_service.dto.transaction;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,6 +1,5 @@
-package it.its.demo.demo_service.dto;
+package it.its.demo.demo_service.dto.book;
 
-import it.its.demo.demo_service.model.Author;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,10 +7,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class BookDto {
+public class ResBookDto {
     String id;
     String name;
-    AuthorWithoutBooksDto author;
+    InnerAuthorDto author;
     Integer quantity;
     Float price;
 }
