@@ -2,7 +2,7 @@ package it.its.demo.demo_service.service;
 
 import it.its.demo.demo_service.dto.author.ResAuthorDto;
 import it.its.demo.demo_service.dto.book.*;
-import it.its.demo.demo_service.dto.transaction.BuyRequest;
+import it.its.demo.demo_service.dto.transaction.ReqBuyDto;
 import it.its.demo.demo_service.dto.transaction.TransactionTotalDto;
 import it.its.demo.demo_service.exceptions.BookDeletedException;
 import it.its.demo.demo_service.exceptions.BookNotFoundException;
@@ -76,7 +76,7 @@ public class BookService {
         throw new BookDeletedException(id);
     }
 
-    public ResBookDto buy(String id, BuyRequest request) {
+    public ResBookDto buy(String id, ReqBuyDto request) {
         Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new BookNotFoundException(id));
 
@@ -86,13 +86,13 @@ public class BookService {
 
         book.setQuantity(book.getQuantity() - request.getQuantity());
 
+        bookRepository.save(book);
+
         Transaction transaction = new Transaction();
         transaction.setBook(book);
         transaction.setTotal(request.getQuantity()*book.getPrice());
 
         transactionRepository.save(transaction);
-
-        bookRepository.save(book);
 
         return bookMapper.toDto(book);
     }

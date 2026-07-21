@@ -12,11 +12,11 @@ import lombok.NoArgsConstructor;
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    String id;
+    private String id;
+
+    private Float total;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "fk_book_id")
-    Book book;
-
-    Float total;
+    private Book book;
 }
