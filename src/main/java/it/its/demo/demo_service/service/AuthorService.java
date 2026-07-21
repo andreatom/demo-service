@@ -35,4 +35,11 @@ public class AuthorService {
         return authorMapper.toDto(author);
     }
 
+    public void delete(Integer id){
+        authorRepository.findById(id).orElseThrow(
+                () -> new AuthorNotFoundException(id)
+        );
+        authorRepository.deleteById(id);
+    }
+
 }

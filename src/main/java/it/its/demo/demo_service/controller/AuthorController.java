@@ -31,6 +31,11 @@ public class AuthorController {
         return authorService.insert(resInsertAuthorDto);
     }
 
-
-
+    @DeleteMapping("/{id}/v1")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(
+            @PathVariable Integer id
+    ) {
+        authorService.delete(id);
+    }
 }
