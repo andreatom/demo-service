@@ -2,9 +2,13 @@ package it.its.demo.demo_service.mapper;
 
 import it.its.demo.demo_service.dto.author.ResAuthorDto;
 import it.its.demo.demo_service.dto.book.*;
+import it.its.demo.demo_service.dto.transaction.ResTransactionDto;
 import it.its.demo.demo_service.model.Book;
+import it.its.demo.demo_service.model.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class BookMapper {
@@ -19,11 +23,23 @@ public class BookMapper {
                         book.getAuthor().getId(),
                         book.getAuthor().getName()
                 );
+        resBookDto.setGuadagno(
+                (float)book.getTransactions().stream()
+                        .mapToDouble(Transaction::getTotal)
+                        .sum()
+        );
+        List<ResTransactionDto> transactionDtoList = book.getTransactions().stream()
+                .map(transaction -> new ResTransactionDto(
+                        transaction.getId(),
+                        transaction.getTotal()
+                ))
+                .toList();
         resBookDto.setId(book.getId());
         resBookDto.setName(book.getName());
         resBookDto.setAuthor(innerAuthorDto);
         resBookDto.setQuantity(book.getQuantity());
         resBookDto.setPrice(book.getPrice());
+        resBookDto.setTransazioni(transactionDtoList);
         return resBookDto;
     }
 
@@ -47,7 +63,7 @@ public class BookMapper {
         return book;
     }
 
-    public Book toModel(ReqReqPatchBookDtoWithId patchBook, ResAuthorDto resAuthorDto){
+    public Book toModel(ReqPatchBookDtoWithId patchBook, ResAuthorDto resAuthorDto){
         Book book = new Book();
         book.setId(patchBook.getId());
         book.setName(patchBook.getName());

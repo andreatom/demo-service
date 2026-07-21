@@ -2,11 +2,15 @@ package it.its.demo.demo_service.service;
 
 import it.its.demo.demo_service.dto.author.ResAuthorDto;
 import it.its.demo.demo_service.dto.book.*;
+import it.its.demo.demo_service.dto.transaction.BuyRequest;
+import it.its.demo.demo_service.dto.transaction.TransactionTotalDto;
 import it.its.demo.demo_service.exceptions.BookDeletedException;
 import it.its.demo.demo_service.exceptions.BookNotFoundException;
+import it.its.demo.demo_service.exceptions.BooksNotAvailable;
 import it.its.demo.demo_service.mapper.AuthorMapper;
 import it.its.demo.demo_service.mapper.BookMapper;
 import it.its.demo.demo_service.model.Book;
+import it.its.demo.demo_service.model.Transaction;
 import it.its.demo.demo_service.repository.BookRepository;
 import it.its.demo.demo_service.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,32 +75,29 @@ public class BookService {
 
         throw new BookDeletedException(id);
     }
-//
-//    public BookDto buy(String id, BuyRequest request) {
-//        Book book = bookRepository.findById(id)
-//                .orElseThrow(() -> new BookNotFoundException(id));
-//
-//        if (book.getQuantity() <= request.getQuantity() - 1) {
-//            throw new BooksNotAvailable(id, request.getQuantity());
-//        }
-//
-//        book.setQuantity(book.getQuantity() - request.getQuantity());
-//
-//        Transaction transaction = new Transaction();
-//        transaction.setBookId(id);
-//        transaction.setTotal(request.getQuantity()*book.getPrice());
-//
-//        transactionRepository.saveTransaction(transaction);
-//
-//        int result = bookRepository.update(id, book);
-//        if(result == 0){
-//            throw new BookNotFoundException(id);
-//        }
-//
-//        return bookMapper.toDto(book);
-//    }
-//
-//
+
+    public ResBookDto buy(String id, BuyRequest request) {
+        Book book = bookRepository.findById(id)
+                .orElseThrow(() -> new BookNotFoundException(id));
+
+        if (book.getQuantity() <= request.getQuantity() - 1) {
+            throw new BooksNotAvailable(id, request.getQuantity());
+        }
+
+        book.setQuantity(book.getQuantity() - request.getQuantity());
+
+        Transaction transaction = new Transaction();
+        transaction.setBook(book);
+        transaction.setTotal(request.getQuantity()*book.getPrice());
+
+        transactionRepository.save(transaction);
+
+        bookRepository.save(book);
+
+        return bookMapper.toDto(book);
+    }
+
+
 //    // PatchBook -> BookDto
     public ResBookDto patch(String id, ReqPatchBookDto reqPatchBookDto) {
 
@@ -126,7 +127,7 @@ public class BookService {
         return bookMapper.toDto(bookRepository.save(toUpdate));
     }
 
-    public ResBookDto patch(ReqReqPatchBookDtoWithId patchBook) {
+    public ResBookDto patch(ReqPatchBookDtoWithId patchBook) {
 
         Book toUpdate = bookRepository.findById(patchBook.getId())
                 .orElseThrow(() -> new BookNotFoundException(patchBook.getId()));
@@ -178,17 +179,20 @@ public class BookService {
         return bookMapper.toDto(bookRepository.save(bookToPut));
 
     }
-//
-//    public TransactionTotalDto total(String id) {
-//        List<Transaction> transactions = transactionRepository.findByBookId(id);
-//        Float total = transactions.stream().
-//                map(Transaction::getTotal)
-//                .reduce((float) 0, Float::sum);
-//
-//        TransactionTotalDto transactionTotalDto = new TransactionTotalDto();
-//        transactionTotalDto.setBookId(id);
-//        transactionTotalDto.setTotal(total);
-//        return transactionTotalDto;
-//    }
+
+    public TransactionTotalDto total(String id) {
+        Book book = bookRepository.findById(id)
+                .orElseThrow(() -> new BookNotFoundException(id));
+
+        List<Transaction> transactions = transactionRepository.findByBook(book);
+        Float total = transactions.stream().
+                map(Transaction::getTotal)
+                .reduce((float) 0, Float::sum);
+
+        TransactionTotalDto transactionTotalDto = new TransactionTotalDto();
+        transactionTotalDto.setBookId(id);
+        transactionTotalDto.setTotal(total);
+        return transactionTotalDto;
+    }
 
 }

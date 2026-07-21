@@ -1,6 +1,8 @@
 package it.its.demo.demo_service.controller;
 
 import it.its.demo.demo_service.dto.book.*;
+import it.its.demo.demo_service.dto.transaction.BuyRequest;
+import it.its.demo.demo_service.dto.transaction.TransactionTotalDto;
 import it.its.demo.demo_service.service.BookService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -36,7 +38,7 @@ public class BookController {
     @PatchMapping("/v1")
     @ResponseStatus(HttpStatus.OK)
     public ResBookDto patch (
-            @Valid @RequestBody ReqReqPatchBookDtoWithId patchBook
+            @Valid @RequestBody ReqPatchBookDtoWithId patchBook
     ) {
         return bookService.patch(patchBook);
     }
@@ -87,21 +89,21 @@ public class BookController {
     ){
        bookService.delete(id);
     }
-//
-//    @PostMapping("/{id}/buy/v1")
-//    @ResponseStatus(HttpStatus.OK)
-//    public BookDto buy(
-//            @PathVariable String id,
-//            @Valid @RequestBody BuyRequest buyRequest
-//    ){
-//        return bookService.buy(id, buyRequest);
-//    }
-//
-//    @GetMapping("/{id}/buy/total/v1")
-//    @ResponseStatus(HttpStatus.OK)
-//    public TransactionTotalDto transactionTotal(
-//            @PathVariable String id
-//    ){
-//        return bookService.total(id);
-//    }
+
+    @PostMapping("/{id}/buy/v1")
+    @ResponseStatus(HttpStatus.OK)
+    public ResBookDto buy(
+            @PathVariable String id,
+            @Valid @RequestBody BuyRequest buyRequest
+    ){
+        return bookService.buy(id, buyRequest);
+    }
+
+    @GetMapping("/{id}/buy/total/v1")
+    @ResponseStatus(HttpStatus.OK)
+    public TransactionTotalDto transactionTotalDto(
+            @PathVariable String id
+    ){
+        return bookService.total(id);
+    }
 }
