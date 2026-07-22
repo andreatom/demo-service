@@ -2,6 +2,7 @@ package it.its.demo.demo_service.dto.book;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
