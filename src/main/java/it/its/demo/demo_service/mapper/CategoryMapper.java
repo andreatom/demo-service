@@ -16,6 +16,7 @@ public class CategoryMapper {
 
     public ResCategoryDto toDto (Category category){
         ResCategoryDto resCategoryDto = new ResCategoryDto();
+        resCategoryDto.setId(category.getId());
         resCategoryDto.setName(category.getName());
         return resCategoryDto;
     }

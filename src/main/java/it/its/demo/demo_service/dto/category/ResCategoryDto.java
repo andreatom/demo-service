@@ -9,5 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ResCategoryDto {
 
+    private Integer id;
     private String name;
 }
