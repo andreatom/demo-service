@@ -1,11 +1,14 @@
 package it.its.demo.demo_service.dto.book;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,7 +30,7 @@ public class ReqInsertBook {
     @Positive(message = "Price cannot be negative")
     Float price;
 
-    @NotNull(message = "Category cannot be null")
-    Integer category;
+    @NotEmpty(message = "Categories cannot be empty")
+    List<String> categories;
 
 }

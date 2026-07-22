@@ -2,6 +2,7 @@ package it.its.demo.demo_service.service;
 
 import it.its.demo.demo_service.dto.author.ResAuthorDto;
 import it.its.demo.demo_service.dto.book.*;
+import it.its.demo.demo_service.dto.category.ResCategoryDto;
 import it.its.demo.demo_service.dto.transaction.ReqBuyDto;
 import it.its.demo.demo_service.dto.transaction.TransactionTotalDto;
 import it.its.demo.demo_service.exceptions.BookDeletedException;
@@ -37,11 +38,16 @@ public class BookService {
     @Autowired
     private TransactionRepository transactionRepository;
 
+    @Autowired
+    private CategoryService categoryService;
+
     public ResBookDto insert(ReqInsertBook insertBook) {
 
         ResAuthorDto resAuthorDto = authorService.findById(insertBook.getAuthor());
 
-        Book book = bookMapper.toModel(insertBook, resAuthorDto);
+        List<ResCategoryDto> categories = categoryService.findOrCreateByNames(insertBook.getCategories());
+
+        Book book = bookMapper.toModel(insertBook, resAuthorDto, categories);
         bookRepository.save(book);
         return bookMapper.toDto(book);
     }
@@ -161,8 +167,10 @@ public class BookService {
         bookRepository.findById(id)
                 .orElseThrow(() -> new BookNotFoundException(id));
 
+        List<ResCategoryDto> categories = categoryService.findOrCreateByNames(insert.getCategories());
+
         ResAuthorDto resAuthorDto = authorService.findById(insert.getAuthor());
-        Book bookToPut = bookMapper.toModel(insert, resAuthorDto);
+        Book bookToPut = bookMapper.toModel(insert, resAuthorDto, categories);
         bookToPut.setId(id);
 
         return bookMapper.toDto(bookRepository.save(bookToPut));
@@ -174,8 +182,10 @@ public class BookService {
         bookRepository.findById(insert.getId())
                 .orElseThrow(() -> new BookNotFoundException(insert.getId()));
 
+        List<ResCategoryDto> categories = categoryService.findOrCreateByNames(insert.getCategories());
+
         ResAuthorDto resAuthorDto = authorService.findById(insert.getAuthor());
-        Book bookToPut = bookMapper.toModel(insert, resAuthorDto);
+        Book bookToPut = bookMapper.toModel(insert, resAuthorDto, categories);
         return bookMapper.toDto(bookRepository.save(bookToPut));
 
     }

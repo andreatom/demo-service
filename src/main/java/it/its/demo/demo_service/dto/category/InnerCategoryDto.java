@@ -1,6 +1,5 @@
 package it.its.demo.demo_service.dto.category;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,8 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReqInsertCategoryDto {
-
-    @NotBlank(message = "Name cannot be blank")
+public class InnerCategoryDto {
+    private Integer id;
     private String name;
 }

@@ -20,4 +20,11 @@ public class CategoryMapper {
         resCategoryDto.setName(category.getName());
         return resCategoryDto;
     }
+
+    public Category toModel (ResCategoryDto resCategoryDto){
+        Category category = new Category();
+        category.setId(resCategoryDto.getId());
+        category.setName(resCategoryDto.getName());
+        return category;
+    }
 }

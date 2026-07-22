@@ -42,4 +42,22 @@ public class CategoryService {
                 .orElseThrow(() -> new CategoryNotFoundException(id));
         return categoryMapper.toDto(category);
     }
+
+    public List<ResCategoryDto> findOrCreateByNames(List<String> names) {
+        return names.stream()
+                .map(this::findOrCreateByName)
+                .map(categoryMapper::toDto)
+                .toList();
+    }
+
+    private Category findOrCreateByName(String name) {
+        return categoryRepository.findByName(name)
+                .orElseGet(() -> {
+                    Category category = new Category();
+                    category.setName(name);
+                    return categoryRepository.save(category);
+                });
+    }
+
+
 }

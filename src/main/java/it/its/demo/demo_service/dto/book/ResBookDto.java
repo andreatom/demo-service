@@ -1,5 +1,6 @@
 package it.its.demo.demo_service.dto.book;
 
+import it.its.demo.demo_service.dto.category.InnerCategoryDto;
 import it.its.demo.demo_service.dto.transaction.InnerTransactionDto;
 import it.its.demo.demo_service.dto.transaction.ResTransactionDto;
 import it.its.demo.demo_service.dto.transaction.TransactionTotalDto;
@@ -21,4 +22,5 @@ public class ResBookDto {
     Integer quantity;
     Float guadagno;
     Float price;
+    List<InnerCategoryDto> categories;
 }
