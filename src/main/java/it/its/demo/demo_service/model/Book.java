@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,6 +28,6 @@ public class Book {
     Author author;
 
     @OneToMany(mappedBy = "book", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    private List<Transaction> transactions;
+    private List<Transaction> transactions = new ArrayList<>();
 }
 

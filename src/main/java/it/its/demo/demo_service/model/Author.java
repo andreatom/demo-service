@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,5 +24,5 @@ public class Author {
 //    La colonna per la relazione sarà creata nella tabella "Book" con la colonna "fk_author_id"
 //    che fa riferimento alla tabella "Author".
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    private List<Book> books;
+    private List<Book> books = new ArrayList<>();
 }
