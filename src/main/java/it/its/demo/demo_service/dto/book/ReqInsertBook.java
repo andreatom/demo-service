@@ -27,4 +27,7 @@ public class ReqInsertBook {
     @Positive(message = "Price cannot be negative")
     Float price;
 
+    @NotNull(message = "Category cannot be null")
+    Integer category;
+
 }

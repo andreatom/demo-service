@@ -28,5 +28,14 @@ public class Book {
 
     @OneToMany(mappedBy = "book", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Transaction> transactions = new ArrayList<>();
+
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "book_category",
+            joinColumns = @JoinColumn(name = "fk_book_id"),
+            inverseJoinColumns = @JoinColumn(name = "fk_category_id")
+    )
+    private List<Category> categories;
+
 }
 
