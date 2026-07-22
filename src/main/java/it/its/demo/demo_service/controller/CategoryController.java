@@ -32,4 +32,12 @@ public class CategoryController {
     public List<ResCategoryDto> findAll() {
         return categoryService.findAll();
     }
+
+    @GetMapping("/{id}/v1")
+    @ResponseStatus(HttpStatus.OK)
+    public ResCategoryDto findById(
+            @PathVariable Integer id
+    ){
+        return categoryService.findById(id);
+    }
 }

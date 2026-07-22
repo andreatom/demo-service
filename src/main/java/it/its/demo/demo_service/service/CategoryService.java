@@ -2,6 +2,7 @@ package it.its.demo.demo_service.service;
 
 import it.its.demo.demo_service.dto.category.ReqInsertCategoryDto;
 import it.its.demo.demo_service.dto.category.ResCategoryDto;
+import it.its.demo.demo_service.exceptions.CategoryNotFoundException;
 import it.its.demo.demo_service.mapper.CategoryMapper;
 import it.its.demo.demo_service.model.Category;
 import it.its.demo.demo_service.repository.CategoryRepository;
@@ -34,5 +35,11 @@ public class CategoryService {
         return categoryRepository.findAll().stream()
                 .map(categoryMapper::toDto)
                 .toList();
+    }
+
+    public ResCategoryDto findById(Integer id) {
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new CategoryNotFoundException(id));
+        return categoryMapper.toDto(category);
     }
 }

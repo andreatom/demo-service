@@ -45,6 +45,16 @@ public class ControllerAdvice {
         return result;
     }
 
+    @ExceptionHandler(CategoryNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Map<String, Object> handleCategoryNotFoundException(CategoryNotFoundException e) {
+        Map<String, Object> result = new HashMap<>();
+        result.put("timestamp", LocalDateTime.now());
+        result.put("status", HttpStatus.NOT_FOUND);
+        result.put("error", e.getMessage());
+        return result;
+    }
+
     @ExceptionHandler(BooksNotAvailable.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String bookNotFound(BooksNotAvailable e){
